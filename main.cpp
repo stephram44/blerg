@@ -19,7 +19,6 @@
 #include "valid.h"
 using namespace std;
 
-// Function prototypes
 void printMenu();
 void printWelcome();
 void printGoodbye();
@@ -48,7 +47,6 @@ int main(){
   int array = 0;
     
     printWelcome();
-  
     while (choice != QUIT) {
         printMenu();
         choice = getChoice();
@@ -57,34 +55,23 @@ int main(){
             milligrams[array] = getMgPerCup();
             cups[array] = getCups();
             array++;
-     }
-       // user chose to calculate for caffeine total
-      else if (choice == CALCULATE) {
-          totalCaf = calcTotalCaf(milligrams, cups, array);
-          
-      // else if (totalCaf > 0)
-        printCafTotal("\nThe total mg of caffeine is ", totalCaf);
-        printPerc(totalCaf);
-
-      // if (totalCaf <= 0){
-      //   cout << "\nError. No drink was entered." << endl;
-
     }
-  }         
       
-
-      // if (totalCaf <= 400) {
-      //       cout << ("\nYou are safely caffeinated." ) << endl;
-      // else (totalCaf > 400)
-      //       cout << ("\nYOU ARE DANGEROUSLY CAFFEINATED!" ) << endl;
-        
-    printDrinks(drinks, milligrams, cups, array); 
+  }      if (choice == CALCULATE) {
+           totalCaf = calcTotalCaf(milligrams, cups, array);
+           printCafTotal("\nTotal milligrams of caffeine  consumed are ", totalCaf);
+           printPerc(totalCaf);
+}               
+         else if (totalCaf > 0)
+              printDrinks(drinks, milligrams, cups, array); 
+         else 
+           cout << "\nNo drinks were entered!" << endl;
+    
     printGoodbye(); 
 
     return 0;
+}
   
-// }
-// }
 
 void printMenu() {
       cout << "\n1. Enter Drink" << endl;
@@ -107,13 +94,13 @@ void printGoodbye() {
 }
 
 
-void printCafTotal(string prompt, int totalCaf) {
+void printCafTotal(string prompt, int totalCaf){
      cout << fixed << setprecision(2);
      cout << prompt << totalCaf << endl;   
-        if (totalCaf <= 0){
-        cout << "\nError. No drink was entered." << endl;
-}
-
+    //     if (totalCaf <= 0){
+    //     cout << "\nError. No drink was entered." << endl;
+    // }
+  }
 
 void printDrinks(string drinks[], float milligrams[], int cups[], int array){
     cout << fixed << setprecision(2);
@@ -200,6 +187,11 @@ void printDrinks(string drinks[], float milligrams[], int cups[], int array){
     int perc = 0;
     perc = (totalCaf / DAILY_REC_AMT) * 100;
     cout << "That is " << perc << '%' 
-      << " of the daily recommended amount of 400 milligrams\n";
-
-  }
+      << " of the daily recommended amount of 400 milligrams";
+   
+    if (perc < 100){
+    cout << ("\nYou are safely caffeinated.") << endl;
+   }
+    else (perc > 100);
+    cout << ("\nYOU ARE DANGEROUSLY CAFFEINATED!") << endl;
+}
